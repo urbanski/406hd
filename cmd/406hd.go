@@ -31,8 +31,6 @@ func IsValidFilter(filterName string) bool {
 }
 
 func main() {
-	fmt.Println("406hd")
-
 	flag.Parse()
 
 	if *inputfile == "" || *outputfile == "" {
@@ -50,6 +48,8 @@ func main() {
 	}
 
 	src := loadImage(*inputfile)
+
+	fmt.Println(fmt.Sprintf("406hd filter=%s input=%s", *filter, *inputfile))
 
 	var g gift.Filter
 	if *filter == "twomedicine" {
