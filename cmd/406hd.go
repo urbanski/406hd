@@ -10,6 +10,7 @@ import (
 	_ "image/jpeg"
 
 	"github.com/urbanski/406hd/img"
+	"github.com/disintegration/gift"
 )
 
 var (
@@ -18,6 +19,15 @@ var (
 	filter = flag.String("f","", "filter name")
 )
 
+func IsValidFilter(filterName string) bool {
+	switch filterName {
+	case
+		"twomedicine",
+		"manyglacier":
+			return true
+	}
+	return false
+}
 
 func main() {
 	fmt.Println("406hd")
@@ -28,6 +38,11 @@ func main() {
 		fmt.Println("You must specify an input file (-i) and output file (-o)")
 	}
 
+	if !IsValidFilter(*filter) {
+		fmt.Println(fmt.Sprintf("Invalid filter: '%s'", *filter))
+		os.Exit(1)
+	}
+
 	if _, err := os.Stat(*inputfile); os.IsNotExist(err) {
 		fmt.Println(fmt.Sprintf("Could not load '%s'", *inputfile))
 		os.Exit(1)
@@ -35,13 +50,13 @@ func main() {
 
 	src := loadImage(*inputfile)
 
-	g := img.TwoMedFilter{}
-	if *filter == "twomed" {
-		g = img.TwoMedFilter{}
-	} else {
-		fmt.Println("Unknown filter: %s", *filter)
-		os.Exit(1)
+	var g gift.Filter
+	if *filter == "twomedicine" {
+		g = img.TwoMedicine()
+	} else if *filter == "manyglacier" {
+		g = img.ManyGlacier()
 	}
+
 
 	dst := image.NewNRGBA(g.Bounds(src.Bounds()))
 
