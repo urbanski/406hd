@@ -57,3 +57,24 @@ func (p *manyglacierFilter) Draw(dst draw.Image, src image.Image, options *gift.
 func ManyGlacier() gift.Filter {
 	return &manyglacierFilter{}
 }
+
+type stripheaderFilter struct {
+	size int
+}
+
+func (p *stripheaderFilter) Bounds(srcBounds image.Rectangle) (dstBounds image.Rectangle) {
+	dstBounds = image.Rect(0, 0, srcBounds.Dx(), srcBounds.Dy())
+	return
+}
+
+func (p *stripheaderFilter) Draw(dst draw.Image, src image.Image, options *gift.Options) {
+	// many glacier
+	g := gift.New(
+		gift.CropToSize(1024, 750, gift.BottomAnchor),
+	)
+	g.Draw(dst, src)
+}
+
+func StripHeader() gift.Filter {
+	return &stripheaderFilter{}
+}

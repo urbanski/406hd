@@ -23,7 +23,8 @@ func IsValidFilter(filterName string) bool {
 	switch filterName {
 	case
 		"twomedicine",
-		"manyglacier":
+		"manyglacier",
+		"stripheader":
 			return true
 	}
 	return false
@@ -55,6 +56,8 @@ func main() {
 		g = img.TwoMedicine()
 	} else if *filter == "manyglacier" {
 		g = img.ManyGlacier()
+	} else if *filter == "stripheader" {
+		g = img.StripHeader()
 	}
 
 
