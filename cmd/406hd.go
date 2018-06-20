@@ -5,12 +5,12 @@ import (
 	"log"
 	"os"
 	"fmt"
-	"image/png"
 	"flag"
 	_ "image/jpeg"
 
 	"github.com/urbanski/406hd/img"
 	"github.com/disintegration/gift"
+	"image/jpeg"
 )
 
 var (
@@ -87,7 +87,7 @@ func saveImage(filename string, img image.Image) {
 	if err != nil {
 		log.Fatalf("os.Create failed: %v", err)
 	}
-	err = png.Encode(f, img)
+	err = jpeg.Encode(f, img, nil)
 	if err != nil {
 		log.Fatalf("png.Encode failed: %v", err)
 	}
